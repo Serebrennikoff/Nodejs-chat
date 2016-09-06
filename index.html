@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Чат на NodeJS</title>
+	
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+</head>
+
+<body class="chat__container">
+
+	<div id="loginModal" class="modal" role="dialog">
+		<div class="modal__wrapper">
+			<div class="modal__dialog">
+				<div class="dialog__content">
+					<div class="dialog__header">
+						<h4 class="header__title">Авторизация</h4>
+					</div>
+					<div class="dialog__body">
+						<form id="loginForm" class="body__login-form">
+							<input type="text" class="login-form__input" placeholder="ФИО" name="realname">
+							<input type="text" class="login-form__input" placeholder="Ник" name="nickname">
+						</form>
+					</div>
+					<div class="dialog__footer">
+						<button type="button" class="footer__btn" onclick="authorize()">Войти</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="photoUploadModal" class="modal" role="dialog">
+		<div class="modal__wrapper">
+			<div class="modal__dialog">
+				<div class="dialog__content">
+					<div class="dialog__header">
+						<h4 class="header__title">Загрузка фото</h4>
+					</div>
+					<div class="photo-upload__body">
+						<div id="dropZone" class="body__drop-zone">Перетащите сюда фото</div>
+					</div>
+					<div class="dialog__footer">
+						<button type="button" class="footer__btn" data-dismiss="modal">Отмена</button>
+						<button id="uploadBtn" type="button" class="footer__btn">Загрузить</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<aside class="chat__info">
+		<div class="info__cur-user">
+			<div id="userPhoto" class="cur-user__image"><img src="images/default.png" alt="Фото участника"></div>
+			<p id="userName" class="cur-user__name">Добро пожаловать!</p>
+		</div>
+		<h3 id="infoTitle" class="info__title"></h3>
+		<ul id="usersOnlineList" class="info__users-online"></ul>
+	</aside>
+	
+	<main class="chat__window">
+
+		<div class="window__wrapper">
+			<ul id="messages" class="window__messages-output"></ul>
+		</div>
+
+		<form id="publish" class="window__message-form">
+				<input type="text" name="message" class="message-form__input" placeholder="Введите сообщение">
+				<div class="message-form__submit-wrapper">
+					<input type="submit" class="message-form__submit" value="Отправить">
+				</div>
+		</form>
+	
+	</main>
+
+	<script id="messageTemplate" type="text/x-handlebars-template">
+		<li class="messages-output__item" data-author="{{authorNick}}">
+			<div class="item__author-photo">
+				<img src="{{authorPhoto}}" alt="Фото пользователя">
+			</div>
+			<div class="item__details">
+				<p class="item-details__author">
+					<span class="author__name">{{authorName}} </span>
+					<span class="author__nick">@{{authorNick}} </span>
+					<span class="item__publish-time">{{time}}</span>
+				</p>
+				<p class="item__text">{{text}}</p>
+			</div>
+		</li>
+	</script>
+
+	<script src="client/main.js"></script>
+</body>
+</html>
