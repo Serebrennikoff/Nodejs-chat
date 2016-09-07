@@ -89,19 +89,22 @@ function authorize() {
 			// Рассылка сообщения в чате
 			publish.onsubmit = function(e) {
 				e.preventDefault();
-				let time = new Date().toLocaleString("ru", {
-					hour: 'numeric',
-					minute: 'numeric'
-				});
-				let msg = {
-					type: "message",
-					authorName: userData.realname,
-					authorNick: userData.nickname,
-					time: time,
-					text: this.elements.message.value
-				};
-				ws.send(JSON.stringify(msg));
-				publish.reset();
+				let messageText = this.elements.message.value.trim();
+				if(messageText) {
+					let time = new Date().toLocaleString("ru", {
+						hour: 'numeric',
+						minute: 'numeric'
+					});
+					let msg = {
+						type: "message",
+						authorName: userData.realname,
+						authorNick: userData.nickname,
+						time: time,
+						text: messageText
+					};
+					ws.send(JSON.stringify(msg));
+					publish.reset();	
+				}
 			};
 			// Открытия окна загрузки фотографии
 			userPhoto.addEventListener("click", () => {
